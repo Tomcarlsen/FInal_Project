@@ -3,23 +3,58 @@ import giphypop
 import os
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
+import urllib,json
 app = Flask(__name__)
 
 #API Key from Giphy
 giphy = os.environ['GIPHY_PUBLIC_API']
 
-#adjusting the search (have to fix the search)
-search_terms = #["horse", "head", "mask"]
-field_keywords = "+".join(search_terms)
-url = "http://api.giphy.com/v1/gifs/search?q=" + field_keywords + "api_key=" + giphy
-
+#pages
 @app.route('/')
 def index():
-    name = request.values.get('name', 'Nobody')
-    greeting = "Hello {}".format(name)
-    return render_template('results_true.html', greeting=greeting)
+    greeting = "Hello gif lover"
+    return render_template('index_final_project.html', greeting=greeting)
 
-app.run(debug=True)
+
+@app.route('/about')
+def about():
+    return render_template('about_final.html')
+
+@app.route('/results')
+def results():
+    gifs = request.values.get('gif')
+    url = "http://api.giphy.com/v1/zifs/search?q=" + field_keywords + "api_key=" + giphy
+    data = json.loads(urllib.urlopen(url).read())
+    
+    results = g.search(gifs)
+
+    media_one = results[0]
+    media_two = results[2]
+    media_four = results[4]
+    media_five = results[6]
+    media_six = results[8]
+    media_seven = results[10]
+    media_eight = results[12]
+    media_nine = results[14]
+    media_ten = results[16]
+
+    url_one = results[1]
+    url_two = results[3]
+    url_four = results[5]
+    url_five = results[7]
+    url_six = results[9]
+    url_seven = results[11]
+    url_eight = results[13]
+    url_nine = results[15]
+    url_ten = results[17]
+
+   
+    return render_template('results_true.html', results=results)#, #price=price)
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 #@app.route('/about')
 #def about():
@@ -56,35 +91,6 @@ app.run(debug=True)
 
 
 
-
-
-
-def get_stock_price(ticker):
-    quotes = getQuotes(ticker)
-    price = quotes[0]['LastTradePrice']
-    return "The price of {} is {}".format(ticker, price)
-
-@app.route('/')
-def index():
-    name = request.values.get('name', 'Nobody')
-    greeting = "Hello {}".format(name)
-    return render_template('index.html', greeting=greeting)
-
-@app.route('/about')
-def about():
-    return render_template('about_page.html')
-
-@app.route('/results')
-def results():
-    stock = request.values.get('stock')
-    price = get_stock_price(stock)
-    return render_template('results.html', price=price)
-
-#@app.route('/users/<username>')
-#def profile():
-#    return render_template('profile.html', user=user)    
-
-app.run(debug=True)
 
 
 
