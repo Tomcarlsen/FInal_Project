@@ -30,7 +30,6 @@ def results():
     results = g.search(gifs) # search gifs and put it into results 
 
 # among results, we need only media url information. And put the information into outcome list that we have created
-
     for result in results: 
         list_of_gifs.append(result.media_url)
     return render_template('results_true.html', results=list_of_gifs)

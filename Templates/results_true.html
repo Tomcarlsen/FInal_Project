@@ -42,11 +42,15 @@
         <!-- GIF Search Results -->
         <div class="container">
             <div class="card-columns">
-                <div class="card">
-                  <a href={{ url_one }} target="_blank">
-                    <img class="card-img-top" src={{ media_one }} style="width:100%; height:auto;">
-                </a>
-                </div>
+            
+                {% for result in results %}
+                     {{ result.media_url }}
+                     {{ result.url }}
+                     <img src= {{ result.url }}>
+                {% endfor %}
+            
+            </div>
+        </div>
             
             
             </div>
